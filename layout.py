@@ -25,7 +25,7 @@ def create_landing_page():
         dcc.Graph(
             id="main-map",
             figure=fig,
-            style={"height": "700px"}
+            style={"height": "1000px"}
         )
     ])
 
