@@ -16,6 +16,12 @@ def create_landing_page():
                 style={"textAlign": "center", "marginTop": "20px"}),
         html.P("Click on a country to view detailed forecasts",
                style={"textAlign": "center", "color": "#666"}),
+        html.P([
+            html.A("Feature Requests", 
+                   href="https://docs.google.com/forms/d/e/1FAIpQLSfMafhy-6XGAMGXSmumQUO3NCZSmBa_b1kGJ_Sx8KcSaZnyDA/viewform?usp=dialog",
+                   target="_blank",
+                   style={"fontSize": "12px", "color": "#999"})
+        ], style={"textAlign": "center", "marginTop": "-10px", "marginBottom": "10px"}),
         dcc.Graph(
             id="main-map",
             figure=fig,
@@ -70,7 +76,7 @@ def create_map_figure(latest_forecasts):
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
         geo=dict(
             center=dict(lat=5, lon=25),
-            projection_scale=0.8
+            projection_scale=0.7
         )
     )
     
@@ -120,7 +126,7 @@ def create_detail_page(country_code: str, month: int, year: int):
             html.Div([
                 html.H3("Summary", style={"marginTop": "0", "marginBottom": "10px"}),
                 html.P(forecast['bluf'], style={
-                    "fontSize": "18px",
+                    "fontSize": "13px",
                     "lineHeight": "1.6",
                     "textAlign": "justify"
                 })
