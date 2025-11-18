@@ -1,6 +1,7 @@
 from dash import Input, Output, State, callback, ctx
 from dash.exceptions import PreventUpdate
 import layout
+from data_loader import get_loader
 
 from app import app
 
@@ -62,3 +63,19 @@ def month_change(month_year_value, current_pathname):
         return f"/country/{country_code}/{month_year_value}"
     
     raise PreventUpdate
+
+@callback(
+    Output("main-map", "figure"),
+    Input("fatality-scale-mode", "value"),
+)
+def update_main_map(scale_mode):
+    """
+    Rebuild the main map when the user toggles between
+    absolute and log fatality scales.
+    """
+    if scale_mode is None:
+        raise PreventUpdate
+
+    loader = get_loader()
+    latest_forecasts = loader.get_latest_forecast_for_map()
+    return layout.create_map_figure(latest_forecasts, scale_mode=scale_mode)
